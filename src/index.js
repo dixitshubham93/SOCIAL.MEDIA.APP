@@ -1,16 +1,21 @@
-import  dbconnect  from "./db/index.js";
+import dbconnect from "./db/index.js";
 import dotenv from "dotenv";
-import { envHandler } from "./utils/envhandler.utils.js";
-import {app} from "./App.js"
+import { app } from "./App.js";
 
 dotenv.config({
-    path:'./env'
-})
+  path: "./.env",
+});
 
 dbconnect()
-.then(()=>{app.listen(envHandler(process.env.PORT)||8000,()=>{console.log(`Listening on the port :${envHandler(process.env.PORT)}`)})})
-.catch(()=>{console.log("database connection is failed")})
-
+  .then(() => {
+    const port =process.env.PORT || 8000
+    app.listen(port, () => {
+      console.log(`Listening on the port :${port}`);
+    });
+  })
+  .catch(() => {
+    console.log("database connection is failed");
+  });
 
 // const app=express()
 // ;(async()=>{
